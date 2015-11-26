@@ -1,0 +1,24 @@
+Refracta Snapshot creates a bootable live-CD image which is a copy of
+your running system. Any changes you make to the running system, 
+including desktop preferences, configuration changes, or added software
+will be copied to the snapshot and will be present when you run that
+snapshot as a live system.
+
+See the config file, /etc/refractasnapshot.conf for setting options.
+
+See the excludes file, /usr/lib/refractasnapshot/snapshot_exclude.list
+to examine which files and directories will not be copied to the 
+snapshot. Edit the file as needed, either by adding items or commenting
+out listed items that you want copied.
+
+As of version 9.0.8, you can edit the config and excludes files from
+within the gui program by choosing "Setup".
+
+To run the script:
+
+	refractasnapshot
+or
+	refractasnapshot-gui
+	
+or use the full path if needed:
+	/usr/bin/refractasnapshot(-gui)

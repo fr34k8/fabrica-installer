@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=fabrica-VE installer LVM 
+GenericName=fabrica-installer-lvm 
+Comment=Install from a live CD to your system.
+TryExec=fabrica-installer-lvm
+#Exec=fabrica-installer-lvm 
+Exec=gksu 'x-terminal-emulator -e /usr/bin/fabrica-installer-lvm '
+Icon=gnome-app-install.png
+Type=Application
+Categories=GNOME;GTK;System;
