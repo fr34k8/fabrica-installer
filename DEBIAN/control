@@ -1,8 +1,8 @@
 Package: fabrica-lvm-installer
-Version: 0.0.0-4
+Version: 0.0.0-5
 Architecture: all
 Maintainer: Piero Proietti <piero.proietti@gmail.com>
-Depends: yad, genisoimage, libcrypt-passwdmd5-perl, live-boot, live-boot-doc, live-boot-initramfs-tools, live-config, live-config-doc, live-config-sysvinit, live-tools, squashfs-tools, syslinux, syslinux-common, user-setup
+Depends: yad
 Section: admin
 Priority: extra
 Homepage: http://www.piojoris15.com/
