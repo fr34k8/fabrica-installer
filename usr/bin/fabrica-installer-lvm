@@ -92,7 +92,7 @@ chkIsLive=$(mount|grep squashfs)
 echo chkIsLive=$chkIsLive
 if [ -z $chkIsLive  ]; then
 	kindMessage "Sembra che tu stia utilizzando una versione installata. L'installazione sarà terminata!"
-#		exit 0
+		exit 0
 fi
 
 #
