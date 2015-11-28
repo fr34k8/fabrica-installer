@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Fabrica-VE installer LVM
+GenericName=fabrica-installer-lvm
+Comment=Installa Fabrica VE con LVM2
+TryExec=fabrica-installer-lvm
+Exec=gksudo "/usr/bin/gnome-terminal -x bash -c /usr/bin/fabrica-installer-lvm"
+Icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png
+Type=Application
+Categories=GNOME;GTK;System;
