@@ -1,8 +1,8 @@
-Package: fabrica-installer-lvm
+Package: fabrica-installer
 Version: 0.0.1-2
 Architecture: all
 Maintainer: Piero Proietti <piero.proietti@gmail.com>
-Depends: yad systemback
+Depends: yad, systemback
 Section: admin
 Priority: extra
 Homepage: http://www.piojoris15.com/
