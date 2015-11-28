@@ -8,43 +8,13 @@
 #  It work with Debian Wheezy LXDE and PVE Proxmox derivate Artisan-Labs
 #  It is compatible with
 #  Depends on:
-#  - bash,
-#  - coreutils,
-#  - dialog,
-#  - hwdata,
-#  - laptop-detect,
-#  - live-boot,
-#  - live-config,
-#  - live-config-sysvinit,
-#  - live-boot-initramfs-tools,
-#  - memtest86+,
-#  - mkisofs | genisoimage,
-#  - mount,
-#  - findutils,
-#  - grub-pc,
-#  - xorriso|syslinux,
-#  - os-prober,
-#  - passwd,
-#  - rsync,
-#  - sed,
-#  - squashfs-tools,
-#  - util-linux
-#  GUI:
-#  - gparted,
-#  - xterm,
-#  - yad,
-#  - read-edid,
-#  - xresprobe,
-#  - previous
+#  - yad
+#  - systemback
 #
 #  Original based on refractainstaller
 #
-#  Copyright 2008-2012 Under the GNU GPL2 License
+#  Copyright 2008-2015 Under the GNU GPL2 License
 #
-#  Originally Created September 12th,2008
-#  Updated to replace zenity with yad July 2012
-#
-# Based on refractainstaller-8.0.3 by Dean Linkous
 # Licence: GPL-3
 # This is free software with no warrantees. Use at your own risk.
 #
@@ -57,12 +27,12 @@
 ###########
 progressbar() {
     tail -f /usr/bin/fabrica-installer-lvm|yad \
-    --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-    --image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
+    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
     --center \
     --always-print-result \
     --dialog-sep \
-    --title="fabrica - Installer LVM" \
+    --title="Fabrica VE - installer LVM" \
     --no-buttons \
     --progress \
     --pulsate \
@@ -80,9 +50,9 @@ progressbarkill() {
 yesNoBox()
 {
 	yad \
-	--window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-    --image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--title="fabrica installer" \
+  --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+  --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+  --title="Fabrica VE - installer LVM" \
 	--center \
 	--button=gtk-yes:0 \
 	--button=gtk-no:1 \
@@ -94,9 +64,10 @@ yesNoBox()
 #
 kindMessage()
 {
-	yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-    --image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-		--title="fabrica installer" \
+	yad  \
+    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+    --title="Fabrica VE - installer LVM" \
 		--center \
 		--button=gtk-ok:0 \
 		--text "$@"
@@ -110,7 +81,6 @@ kindMessage()
 # Impostazione delle opzioni
 RINUNCIA='Rinuncia Esce'
 
-
 # Queste variabili sono state impostate fisse!
 PARTITIONPROG="gparted"
 TARGETCDROM="/dev/cdrom"
@@ -122,26 +92,20 @@ chkIsLive=$(mount|grep squashfs)
 echo chkIsLive=$chkIsLive
 if [ -z $chkIsLive  ]; then
 	kindMessage "Sembra che tu stia utilizzando una versione installata. L'installazione sarà terminata!"
-		exit 0
+#		exit 0
 fi
 
-yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-	--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--title="fabrica installer" \
-	--always-print-result \
-	--dialog-sep \
-	--button=gtk-yes:0 \
-	--button=gtk-no:1 \
-	--text \
-"ATTENZIONE: Questo installer cancellerà completamente il vostro disco rigido.
-
-Siete sicuri di voler continuare?"
+#
+# AVVISO utente
+#
+yesNoBox "ATTENZIONE: Questo installer cancellerà completamente il vostro disco rigido. Siete sicuri di voler continuare?"
 if [ $? != 0 ]; then
 	exit 0
 fi
 
+#
 # Inizio
-
+#
 DRIVES=`cat /proc/partitions | grep -v loop | grep -v major | grep -v "^$" | awk '{print $4}' | grep -v "[0-9]"`
 
 for i in $DRIVES; do
@@ -154,16 +118,16 @@ PARTDRIVE=""
 while [ "$PARTDRIVE" = "" ]
 do
 	PARTDRIVE=`yad \
-			--window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-			--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-			--title="Artisan Lab - Installer LVM" \
+      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+			--image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+      --title="Fabrica VE - installer LVM" \
 			--always-print-result \
 			--dialog-sep \
 			--width=600 \
 			--height=300  \
 			--text \
 	"Selezionate il disco per installazione.\n
-	Se il solo disco disponibile è Rinuncia, allora i dischi non sono stati trovati." \
+	Se il solo disco disponibile è Rinuncia, allora nessun disco è stato trovato." \
 	--list \
 		--column=Disco \
 		--column Dimensioni \
@@ -181,13 +145,10 @@ fi
 echo "partdrive=$PARTDRIVE"
 
 
-
-yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-	--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--center \
-	--title="fabrica installer" \
-	--button=gtk-ok:0 \
-	--text="Distruggo il disco: /dev/$PARTDRIVE"
+yesNoBox "A questo punto, distruggerò il disco: /dev/$PARTDRIVE Siete sicuri di voler continuare?"
+if [ $? != 0 ]; then
+	exit 0
+fi
 
 	# rimuovo disco pve
 	lvremove pve
@@ -247,15 +208,9 @@ echo "LVM_SWAP_SIZE=$(($LVM_SWAP_SIZE/$GB)) GB, $LVM_SWAP_SIZE"
 echo "LVM_ROOT_SIZE=$(($LVM_ROOT_SIZE/$GB)) GB, $LVM_ROOT_SIZE"
 echo "LVM_DATA_SIZE=$(($LVM_DATA_SIZE/$GB)) GB, $LVM_DATA_SIZE"
 
-yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-	--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--center \
-	--title="fabrica installer" \
-	--button=gtk-yes:0 \
-	--button=gtk-no:1 \
-	--text=" \
-		Il disco selezionato è di $((HD_SIZE_MB/1024)) GB
-		Viene creata:
+
+yesNoBox "Il disco selezionato è di $((HD_SIZE_MB/1024)) GB
+		Verranno create:
 		- partizione /boot su /dev/$PARTDRIVE  512 MB
 		- partizione LVM $LVM_PARTNAME di $(($LVM_SIZE/$GB)) GB
 		pvcreate /dev/$LVM_PARTNAME # volume fisico su /dev/$LVM_PARTNAME
@@ -267,10 +222,11 @@ yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
 		vgchange -a y pve
 "
 if [ $? != 0 ]; then
-	yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-		--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
+	yad \
+    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+		--image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
 		--center \
-		--title="fabrica installer" \
+    --title="Fabrica VE - installer LVM" \
 		--button=gtk-ok:0 \
 		--text="Operazione abortita!"
 	exit 0
@@ -306,11 +262,11 @@ if [ "$testmode" = "" ]; then
 	while [ "$PASSOK" != "Yes" ]; do
 
 		CHOICES=`yad \
-			--window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-			--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
+      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+      --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
 			--always-print-result \
 			--dialog-sep \
-			--title="fabrica installer" \
+      --title="Fabrica VE - installer LVM" \
 			--width=600 --height=300 --center\
 			--form \
 			--field="Nome utente completo" \
@@ -341,7 +297,7 @@ if [ "$testmode" = "" ]; then
 			IPGATEWAY=`echo $CHOICES | cut -d "|" -f 11`
 			TARGETDNS= `echo $CHOICES | cut -d "|" -f 12`
 		else
-			kindMessage "La procedusa sarà terminata"
+			kindMessage "La procedura sarà terminata"
 		  	exit 1
 		fi
 
@@ -362,9 +318,10 @@ GRUBLOCTEST=""
 while [ "$GRUBLOCTEST" = "" ]
 do
 	GRUBLOCTEST=`
-	yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-		--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png  \
-		--title="fabrica installer" \
+	yad \
+    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+    --title="Fabrica VE - installer LVM" \
 		--always-print-result \
 		--dialog-sep \
         --width=600 \
@@ -390,9 +347,10 @@ else
 fi
 
 #Timezone setting
-yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-	--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--title="fabrica installer" \
+yad \
+  --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+  --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+  --title="Fabrica VE - installer LVM" \
 	--always-print-result \
 	--dialog-sep \
 	--button=Locale:0 \
@@ -414,9 +372,10 @@ rm /tmp/remastersys.zoneinfo
 ZONESINFO=""
 while [ "$ZONESINFO" = "" ]
 do
-	ZONESINFO=`yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-			--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-			--title="Artisan-Lab-Installer" \
+	ZONESINFO=`yad \
+      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+      --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+      --title="Fabrica VE - installer LVM" \
 			--always-print-result \
 			--dialog-sep \
 			--width=600 \
@@ -448,14 +407,7 @@ else
 fi
 
 if [ "$testmode" = "" ]; then
-	yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-		--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-		--title="fabrica installer" \
-		--always-print-result \
-		--dialog-sep \
-		--button=gtk-yes:0 \
-		--button=gtk-no:1 \
-		--text="
+  yesNoBox"
 Verificate ATTENTAMENTE le infomazioni.\n\n-Il sistema sarà creato su:
 $TARGETPART che verrà formatatta $FSTYPE;
 - $HOMETEXT\n\n- sarà creato l\'utente $TARGETUSER;
@@ -561,13 +513,7 @@ progressbar "
 Copia dei file nel sistema di destinazione... \n
 Questa operazione può durare a lungo... Attendere!\n" &
 
-#if [ "$HFSTYPE" = "noformat" ]; then
-#	rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,home,live,cdrom,mnt,proc,run,sys,media}
-#else
-#	rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,live,cdrom,mnt,proc,run,sys,media}
-#fi
-
-rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,live,cdrom,mnt,proc,run,sys,media}
+rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,live,cdrom,mnt,proc,run,sys,media,.systemback}
 
 # Creo anche la home
 mkdir -p /TARGET/{proc,mnt,run,sys,media/cdrom,home}
@@ -606,7 +552,7 @@ rm -rf /TARGET/etc/fstab
 #create the new fstab
 #
 if [ "$HOMEPART" = "root" ]; then
-	# Crea fstab semplice
+	# Crea un semplice fstab
 	cat > /TARGET/etc/fstab <<FOO
 # /etc/fstab: static file system information.
 # /var/lib/vz è montato su root
@@ -622,7 +568,7 @@ $TARGETCDROM /media/cdrom udf,iso9660 user,noauto,exec,utf8 0 0
 FOO
 
 else
-	# Crea fstab con /var/lib/vz separato
+	# Creo fstab con /var/lib/vz separato
 	cat > /TARGET/etc/fstab <<FOO
 # /etc/fstab: static file system information.
 # /var/lib/vz è montato su /dev/$HOMEPART
@@ -729,7 +675,7 @@ echo "ff02::3 ip6-allhosts" >>/TARGET/etc/hosts
 
 #Creazione di /etc/resolv.conf
 #touch /TARGET/etc/resolv.conf
-echo "# Generated by fabrica-installer" >TARGET/etc/resolv.conf
+echo "# Generated by fabrica-installer-lvm" >TARGET/etc/resolv.conf
 echo "domain $TARGETDPMAIN" >>/TARGET/etc/resolv.conf
 echo "nameserver $TARGETDNS" >>/TARGET/etc/resolv.conf
 
@@ -783,11 +729,8 @@ chroot /TARGET dpkg-reconfigure openssh-server
 progressbarkill
 
 #
-# Rimuovo il link dal deskyop
+# Smonto /TARGET
 #
-rm /TARGET/home/artisan/Desktop/fabrica-installer-lvm.desktop
-
-
 progressbar "Smonto la partizione /TARGET...\n" &
 sleep 1
 umount /TARGET/proc
@@ -805,19 +748,16 @@ sleep 1
 progressbarkill
 
 
-yad --window-icon=/usr/share/icons/artisan-lab/artisan-lab.png \
-	--image=/usr/share/icons/artisan-lab/artisan-lab-installer-lvm.png \
-	--title="Artisan Lab - Installer" \
-	--always-print-result \
-	--dialog-sep \
-	--button=gtk-yes:0 --button=gtk-no:1 \
-	--text \
-"L\'installazione è completata.
+#
+# Concludo
+#
+kindMessage "L\'installazione è stata completata.
 
-Se tutto è andato bene, dovresti avere la tua macchina configurata e pronta
-all\'uso, altrimenti, puoi sempre collaborare a migliorare lo script!
+Dovresti avere la tua Fabrica configurata e pronta all\'uso, altrimenti, puoi sempre collaborare a migliorare lo script!
 
-Piero Proietti piero.proietti@gmail.com"
+L\'autore
+sito: http://www.piojoris15.com
+email: Piero Proietti piero.proietti@gmail.com"
 if [ $? != 0 ]; then
 	exit 0
 else

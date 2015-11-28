@@ -1,12 +1,14 @@
-Package: fabrica-lvm-installer
-Version: 0.0.0-5
+Package: fabrica-installer-lvm
+Version: 0.0.1-2
 Architecture: all
 Maintainer: Piero Proietti <piero.proietti@gmail.com>
-Depends: yad
+Depends: yad systemback
 Section: admin
 Priority: extra
 Homepage: http://www.piojoris15.com/
-Description: Fabrica-VE: un server per la virtualizzazione amichevole. Derivato da Proxmox-VE
- Script per l'installazione di Fabrica-VE su LVM2.
+Description: Script per l'installazione di Fabrica-VE su LVM2.
+ Fabrica-VE: un server per la virtualizzazione amichevole, derivato da Proxmox-VE
+ con l'aggiunta di interfaccia grafica cinnamon e quanto occorre per un server
+ domestico.
  Sito: http://www.piojoris15.com/
  Autore: Piero Proietti <piero.proietti@gmail.com>
