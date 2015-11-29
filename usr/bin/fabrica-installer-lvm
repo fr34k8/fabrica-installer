@@ -87,6 +87,20 @@ TARGETCDROM="/dev/cdrom"
 LIVEMODE="DIST"
 DEFAULTGROUPS="audio,cdrom,dialout,floppy,video,plugdev,sudo"
 
+FILE="/tmp/out.$$"
+GREP="/bin/grep"
+#....
+# Make sure only root can run our script
+if [ "$(id -u)" != "0" ]; then
+   kindMessage \
+   "Questo installer può essere utilizzato solo la root.
+    Apri una finestra di terminale, digita:
+    \$>sudo
+    quindi, digita:
+    \$>fabrica-installer" 1>&2
+   exit 0
+fi
+
 # Controllo se esiste il device /dev/loop0
 chkIsLive=$(mount|grep squashfs)
 echo chkIsLive=$chkIsLive
