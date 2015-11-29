@@ -386,8 +386,7 @@ done
 ZONESINFO=""
 while [ "$ZONESINFO" = "" ]
 do
-	ZONESINFO=`yad \
-      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
+	ZONESINFO=`yad --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
       --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
       --title="Fabrica VE - installer LVM" \
 			--always-print-result \
@@ -421,15 +420,16 @@ else
 fi
 
 if [ "$testmode" = "" ]; then
-  yesNoBox"
+  yesNoBox "
 Verificate ATTENTAMENTE le infomazioni.\n\n-Il sistema sarà creato su:
 $TARGETPART che verrà formatatta $FSTYPE;
 - $HOMETEXT\n\n- sarà creato l\'utente $TARGETUSER;
 - grub sarà installato su  $GRUBLOCTEXT.
 
-Volete continuare?"
+Volete continuare?
+"
 
-	if [ $? != 0 ]; then
+  if [ $? != 0 ]; then
 		kindMessage "La procedura sarà terminata!"
 	  exit 1
 	fi
