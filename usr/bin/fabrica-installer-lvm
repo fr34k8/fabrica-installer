@@ -367,7 +367,7 @@ cat /usr/share/zoneinfo/zone.tab | awk '{print $3}' | grep "/" | sort > /tmp/rem
 for i in `cat /tmp/remastersys.zoneinfo`; do
 	ZONES="$ZONES $i Timezone"
 done
-rm /tmp/remastersys.zoneinfo
+#rm /tmp/remastersys.zoneinfo
 
 ZONESINFO=""
 while [ "$ZONESINFO" = "" ]
