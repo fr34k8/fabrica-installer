@@ -95,9 +95,7 @@ if [ "$(id -u)" != "0" ]; then
    kindMessage \
    "Questo installer può essere utilizzato solo la root.
     Apri una finestra di terminale, digita:
-    \$>sudo
-    quindi, digita:
-    \$>fabrica-installer" 1>&2
+    \$>sudo fabrica-installer"
    exit 0
 fi
 
@@ -770,6 +768,7 @@ kindMessage "L\'installazione è stata completata.
 Dovresti avere la tua Fabrica configurata e pronta all\'uso, altrimenti, puoi sempre collaborare a migliorare lo script!
 
 L\'autore
+
 sito: http://www.piojoris15.com
 email: Piero Proietti piero.proietti@gmail.com"
 if [ $? != 0 ]; then
