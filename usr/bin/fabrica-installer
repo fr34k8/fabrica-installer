@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #
-#  fabrica-installer-lvm is an alternative installer for remastered livecd/dvd's
+#  fabrica-installer is an alternative installer for remastered livecd/dvd's
 #
 #  Created by Piero Proietti
 #  Copyright 2012 Under the GNU GPL2 License
@@ -26,9 +26,9 @@
 # Funzioni
 ###########
 progressbar() {
-    tail -f /usr/bin/fabrica-installer-lvm|yad \
-    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+    tail -f /usr/bin/fabrica-installer|yad \
+    --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
     --center \
     --always-print-result \
     --dialog-sep \
@@ -50,8 +50,8 @@ progressbarkill() {
 yesNoBox()
 {
 	yad \
-  --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-  --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+  --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+  --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
   --title="Fabrica VE - installer LVM" \
 	--center \
 	--button=gtk-yes:0 \
@@ -65,8 +65,8 @@ yesNoBox()
 kindMessage()
 {
 	yad  \
-    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+    --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
     --title="Fabrica VE - installer LVM" \
 		--center \
 		--button=gtk-ok:0 \
@@ -130,9 +130,10 @@ PARTDRIVE=""
 while [ "$PARTDRIVE" = "" ]
 do
 	PARTDRIVE=`yad \
-      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-			--image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+      --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+			--image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
       --title="Fabrica VE - installer LVM" \
+      --center \
 			--always-print-result \
 			--dialog-sep \
 			--width=600 \
@@ -235,10 +236,10 @@ yesNoBox "Il disco selezionato è di $((HD_SIZE_MB/1024)) GB
 "
 if [ $? != 0 ]; then
 	yad \
-    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-		--image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
-		--center \
+    --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+		--image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
     --title="Fabrica VE - installer LVM" \
+    --center \
 		--button=gtk-ok:0 \
 		--text="Operazione abortita!"
 	exit 0
@@ -274,11 +275,11 @@ if [ "$testmode" = "" ]; then
 	while [ "$PASSOK" != "Yes" ]; do
 
 		CHOICES=`yad \
-      --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-      --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
-			--always-print-result \
-			--dialog-sep \
+      --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+      --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
       --title="Fabrica VE - installer LVM" \
+      --center \
+			--dialog-sep \
 			--width=600 --height=300 --center\
 			--form \
 			--field="Nome utente completo" \
@@ -331,9 +332,10 @@ while [ "$GRUBLOCTEST" = "" ]
 do
 	GRUBLOCTEST=`
 	yad \
-    --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-    --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+    --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+    --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
     --title="Fabrica VE - installer LVM" \
+    --center \
 		--always-print-result \
 		--dialog-sep \
         --width=600 \
@@ -360,9 +362,10 @@ fi
 
 #Timezone setting
 yad \
-  --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-  --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+  --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+  --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
   --title="Fabrica VE - installer LVM" \
+  --center \
 	--always-print-result \
 	--dialog-sep \
 	--button=Locale:0 \
@@ -384,9 +387,10 @@ done
 ZONESINFO=""
 while [ "$ZONESINFO" = "" ]
 do
-	ZONESINFO=`yad --window-icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png \
-      --image=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_256.png \
+	ZONESINFO=`yad --window-icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png \
+      --image=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_256.png \
       --title="Fabrica VE - installer LVM" \
+      --center \
 			--always-print-result \
 			--dialog-sep \
 			--width=600 \
@@ -688,7 +692,7 @@ echo "ff02::3 ip6-allhosts" >>/TARGET/etc/hosts
 
 #Creazione di /etc/resolv.conf
 #touch /TARGET/etc/resolv.conf
-echo "# Generated by fabrica-installer-lvm" >TARGET/etc/resolv.conf
+echo "# Generated by fabrica-installer" >TARGET/etc/resolv.conf
 echo "domain $TARGETDPMAIN" >>/TARGET/etc/resolv.conf
 echo "nameserver $TARGETDNS" >>/TARGET/etc/resolv.conf
 
