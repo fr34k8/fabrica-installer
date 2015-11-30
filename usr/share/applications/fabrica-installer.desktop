@@ -5,6 +5,6 @@ GenericName=fabrica-installer
 Comment=Installa Fabrica VE con LVM
 TryExec=fabrica-installer
 Exec=gnome-terminal -x bash -c /usr/bin/fabrica-installer
-Icon=/usr/share/icons/fabrica-installer-lvm/Factory_Yellow_2_Icon_32.png
+Icon=/usr/share/icons/fabrica-installer/Factory_Yellow_2_Icon_32.png
 Type=Application
 Categories=GNOME;GTK;System;
