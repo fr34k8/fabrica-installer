@@ -750,6 +750,16 @@ umount /TARGET
 sleep 1
 progressbarkill
 
+# Co sarebbero da smontare...
+#/dev/loop0 on /lib/live/mount/rootfs/filesystem.squashfs
+#tmpfs on /lib/live/mount/overlay type tmpfs
+kingMessage "Provo a smontare /lib/live/mount/rootfs/filesystem.squashfs "
+umont /lib/live/mount/rootfs/filesystem.squashfs
+
+kingMessage "Provo a smontare /lib/live/mount/overlay "
+umount /lib/live/mount/overlay
+
+
 
 #
 # Concludo
