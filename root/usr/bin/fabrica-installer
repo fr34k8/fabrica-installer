@@ -174,13 +174,13 @@ fi
 
 
 	# Crea partizione boot
-	parted --script /dev/$PARTDRIVE mkpart primary ext2 1 512
+	parted --script /dev/$PARTDRIVE mkpart primary ext4 1 512
 	parted --script --align optimal  /dev/$PARTDRIVE set 1 boot on
 	sleep 1
 
 	# Crea partizione lvm
 	parted --script --align optimal /dev/$PARTDRIVE mkpart primary ext2 512 $HD_SIZE_MB
-	parted --script /dev/$PARTDRIVE set 2 lvm on
+  parted --script /dev/$PARTDRIVE set 2 lvm on
 	sleep 1
 
 
