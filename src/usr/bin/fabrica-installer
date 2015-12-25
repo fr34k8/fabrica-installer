@@ -530,7 +530,7 @@ Copia dei file nel sistema di destinazione... \n
 Questa operazione può durare a lungo... Attendere!\n" &
 
 ## /lib/live/mount/medium/live/filesystem.squashfs
-rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,live,cdrom,mnt,proc,run,sys,media,.systemback}
+rsync -a / /TARGET --ignore-existing --exclude=/{TARGET,live,cdrom,mnt,proc,run,sys,media,.systemback,medium,overlay,rootfs}
 
 # Creo anche la home
 mkdir -p /TARGET/{proc,mnt,run,sys,media/cdrom,home}
